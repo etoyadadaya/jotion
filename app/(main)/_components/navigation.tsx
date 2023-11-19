@@ -2,6 +2,7 @@
 
 import { ElementRef, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { toast } from 'sonner';
 import {
   ChevronsLeftIcon,
   MenuIcon,
@@ -17,19 +18,20 @@ import { useMediaQuery } from 'usehooks-ts';
 
 import { Item } from './item';
 import { UserItem } from './user-item';
-import { cn } from '@/lib/utils';
-import { toast } from 'sonner';
-import { DocumentList } from '@/app/(main)/_components/document-list';
+import { TrashBox } from './trash-box';
+import { DocumentList } from './document-list';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { TrashBox } from '@/app/(main)/_components/trash-box';
 import { useSearch } from '@/hooks/use-search';
+import { useSettings } from '@/hooks/use-settings';
+import { cn } from '@/lib/utils';
 
 export const Navigation = () => {
   const search = useSearch();
+  const settings = useSettings();
   const pathname = usePathname();
   const isMobile = useMediaQuery('(max-width: 768px)');
   const create = useMutation(api.documents.create);
@@ -149,7 +151,11 @@ export const Navigation = () => {
             icon={SearchIcon}
             isSearch
           />
-          <Item label='Settings' onClick={() => {}} icon={SettingsIcon} />
+          <Item
+            label='Settings'
+            onClick={settings.onOpen}
+            icon={SettingsIcon}
+          />
           <Item onClick={handleCreate} label='New page' icon={PlusCircleIcon} />
           <Popover>
             <PopoverTrigger className='mt-4 w-full'>

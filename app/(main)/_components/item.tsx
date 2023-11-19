@@ -24,7 +24,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useUser } from '@clerk/clerk-react';
-import { archive } from '@/convex/documents';
 
 interface ItemProps {
   id?: Id<'documents'>;
@@ -107,7 +106,7 @@ export const Item = ({
       {!!id && (
         <div
           role='button'
-          className='mr-1 h-full rounded-sm hover:bg-neutral-300 dark:bg-neutral-600'
+          className='mr-1 h-full rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600'
           onClick={handleExpand}
         >
           <ChevronIcon className='h-4 w-4 shrink-0 text-muted-foreground/50' />
