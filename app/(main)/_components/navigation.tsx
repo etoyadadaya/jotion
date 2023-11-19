@@ -1,7 +1,7 @@
 'use client';
 
 import { ElementRef, useEffect, useRef, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { toast } from 'sonner';
 import {
   ChevronsLeftIcon,
@@ -28,11 +28,13 @@ import {
 import { useSearch } from '@/hooks/use-search';
 import { useSettings } from '@/hooks/use-settings';
 import { cn } from '@/lib/utils';
+import { Navbar } from '@/app/(main)/_components/navbar';
 
 export const Navigation = () => {
   const search = useSearch();
   const settings = useSettings();
   const pathname = usePathname();
+  const params = useParams();
   const isMobile = useMediaQuery('(max-width: 768px)');
   const create = useMutation(api.documents.create);
 
@@ -187,15 +189,19 @@ export const Navigation = () => {
           isMobile && 'left-0 w-full'
         )}
       >
-        <nav className='w-full bg-transparent px-3 py-2'>
-          {isCollapsed && (
-            <MenuIcon
-              onClick={resetWidth}
-              role='button'
-              className='h-6 w-6 text-muted-foreground'
-            />
-          )}
-        </nav>
+        {!!params.documentId ? (
+          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+        ) : (
+          <nav className='w-full bg-transparent px-3 py-2'>
+            {isCollapsed && (
+              <MenuIcon
+                onClick={resetWidth}
+                role='button'
+                className='h-6 w-6 text-muted-foreground'
+              />
+            )}
+          </nav>
+        )}
       </div>
     </>
   );
