@@ -6,8 +6,10 @@ import {
   ChevronsLeftIcon,
   MenuIcon,
   PlusCircleIcon,
+  PlusIcon,
   SearchIcon,
   SettingsIcon,
+  TrashIcon,
 } from 'lucide-react';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
@@ -18,6 +20,12 @@ import { UserItem } from './user-item';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { DocumentList } from '@/app/(main)/_components/document-list';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { TrashBox } from '@/app/(main)/_components/trash-box';
 
 export const Navigation = () => {
   const pathname = usePathname();
@@ -136,9 +144,21 @@ export const Navigation = () => {
           <Item label='Search' onClick={() => {}} icon={SearchIcon} isSearch />
           <Item label='Settings' onClick={() => {}} icon={SettingsIcon} />
           <Item onClick={handleCreate} label='New page' icon={PlusCircleIcon} />
+          <Popover>
+            <PopoverTrigger className='mt-4 w-full'>
+              <Item label='Trash' icon={TrashIcon} />
+            </PopoverTrigger>
+            <PopoverContent
+              side={isMobile ? 'bottom' : 'right'}
+              className='w-72 p-0'
+            >
+              <TrashBox />
+            </PopoverContent>
+          </Popover>
         </div>
         <div className='mt-4'>
           <DocumentList />
+          <Item onClick={handleCreate} icon={PlusIcon} label='Add a page' />
         </div>
         <div
           onMouseDown={handleMouseDown}
