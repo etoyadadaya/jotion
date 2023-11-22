@@ -6,7 +6,6 @@ import { useMutation, useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { Id } from '@/convex/_generated/dataModel';
 
-import Editor from '@/components/core/editor';
 import { Toolbar } from '@/components/core/toolbar';
 import { Cover } from '@/components/core/cover';
 import { Skeleton } from '@/components/ui/skeleton';
